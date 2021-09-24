@@ -17,7 +17,7 @@ Telegram BOT for Sri Lankans...
 ![GitHub issues](https://img.shields.io/github/issues/ShanelkaPramuditha/NIC-Sri-Lanka-BOT)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/ShanelkaPramuditha/NIC-Sri-Lanka-BOT)
 ![GitHub labels](https://img.shields.io/github/labels/ShanelkaPramuditha/NIC-Sri-Lanka-BOT/help%20wanted)
-![GitHub](https://img.shields.io/github/license/ShanelkaPramuditha/NIC-Sri-Lanka-BOT)
+[![APM](https://img.shields.io/apm/l/vim-mode)](https://choosealicense.com/licenses/mit/)
 
 # Features
 

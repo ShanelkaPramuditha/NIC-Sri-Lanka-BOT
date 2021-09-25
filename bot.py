@@ -105,20 +105,56 @@ def start(client, message):
         lived_days = str(lived_days).split(', ')[0]
 
         # age in year, month, days
-        if today.month >= birth_day.month:
-            age_year = str(today.year - birth_day.year) + " years"
-            if today.day >= birth_day.day:
-                age_month = str(today.month - birth_day.month) + " months"
-                age_days = str(today.day - birth_day.day) + " days"
+        
+        today1 = datetime.date.today()
+        birth_day1 = datetime.date(birth_day.year, birth_day.month, birth_day.day)
+
+        lived_days_original = today1 - birth_day1
+        total_days = lived_days_original
+        years = 0
+
+        year1 = 1
+        year2 = 0
+
+        while total_days >= today1 - datetime.date(today1.year - 1, today1.month, today1.day):
+            total_days = total_days - (datetime.date(birth_day1.year + year1, birth_day1.month, birth_day1.day) - datetime.date(birth_day1.year + year2, birth_day1.month, birth_day1.day))
+            years = years + 1
+            year1 = year1 + 1
+            year2 = year2 + 1
+
+        def get_days():
+            if today1.month != 1:
+                days = datetime.date(today1.year, today1.month, today1.day) - datetime.date(today1.year, today1.month - 1, birth_day1.day)
+                days = str(days).split(" ")[0]
+                return days
             else:
-                age_month = str(today.month - birth_day.month - 1) + " months"
-                age_month_int = today.month - birth_day.month - 1
-                age_days = str(datetime.datetime(today.year, today.month, today.day) - datetime.datetime(today.year, birth_day.month + age_month_int, birth_day.day)).split(", ")[0]
+                days = datetime.date(today1.year, today1.month, today1.day) - datetime.date(today1.year - 1, 12, birth_day1.day)
+                days = str(days).split(" ")[0]
+                return days
 
-        else:
-            age_year = str(today.year - birth_day.year - 1) + " years"
+        if birth_day1.month < today1.month:
+            months = today1.month - birth_day1.month
+            if birth_day1.day <= today1.day:
+                days = today1.day - birth_day1.day
+            elif birth_day1.day > today1.day:
+                days = get_days()
+        elif birth_day1.month == today1.month:
+            if birth_day1.day < today1.day or birth_day1.day == today1.day:
+                months = 0
+                days = today1.day - birth_day1.day
+            elif birth_day1.day > today1.day:
+                months = 11
+                days = get_days()
+        elif birth_day1.month > today1.month:
+            if birth_day1.day < today1.day or birth_day1.day == today1.day:
+                months = 12 - birth_day1.month + today1.month
+                days = today1.day - birth_day1.day
+            elif birth_day1.day > today1.day:
+                months = 11 - birth_day1.month + today1.month
+                days = get_days()
 
-        age = f"{age_year} {age_month} {age_days}"
+    
+        age = f"{str(years)} years {str(months)} months {str(days)} days"
 
         #message.reply_text output
 
